@@ -15,12 +15,11 @@ void work(){
         }
     }
     bool flag = false;
-    int ts;
+    // int ts;
     for(int i = 2;i < N;i ++){
         // printf("now:%d cnt:%d\n",i,cnt[i]);
         if(cnt[i] >= 2){
             flag = true;
-            ts = i;
             break;
         }
     }
