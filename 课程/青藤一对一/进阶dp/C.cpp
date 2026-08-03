@@ -23,45 +23,30 @@ typedef long long ll;
 typedef unsigned long long ull;
 const int INF = 0x3f3f3f3f3f3f3f3f;
 const int mod = 1000000007;
-const int N = 2e5;
-struct Edge{
-    int nxt,to,w;
-}edg[N<<2];
-int head[N],tot,rd[N];
-void init_graph(int n){
-    tot = 0;
-    for(int i = 1;i <= n;i ++){
-        head[i] = rd[i] = 0;
-    }
-    return ;
-}
-void add(int u,int v,int w=0){
-    edg[++tot].nxt = head[u];
-    edg[tot].to = v;
-    edg[tot].w = w;
-    head[u] = tot;
-    rd[v] ++;
-    return ;
-}
-
 void work(){
-    int n,m,s; cin >> n >> m >> s;
-    init_graph(n);
-    rep(i,m){
-        int u,v; cin >> u >> v;
-        add(u,v); add(v,u);
-    }
-    vi dis(n,INF);
-    queue<int>q;
-    dis[s] = 0;
-    q.push(s);
-    while(!q.empty()){
-        int t = q.front(); q.pop();
-        for(int e = head[t];e;e = edg[e].nxt){
-            int to = edg[e].to;
-            if()
+    int n,d; cin >> n >> d;
+    vi a(n+1);
+    For(i,1,n) cin >> a[i];
+    deque<pii>mx,mi;
+    int L = 1;
+    int len = 0;
+    For(i,1,n){
+        while(!mx.empty() && mx.back().second<=a[i]) mx.pop_back();
+        while(!mi.empty() && mi.back().second>=a[i]) mi.pop_back();
+        mx.push_back({i,a[i]}); mi.push_back({i,a[i]});
+        while(mx.front().second-mi.front().second>d){
+            if(mx.front().first<mi.front().first){
+                L = mx.front().first+1;
+                mx.pop_front();
+            }
+            else{
+                L = mi.front().first+1;
+                mi.pop_front();
+            }
         }
+        len = max(i-L+1,len);
     }
+    cout << len;
     return ;
 }
 signed main(){

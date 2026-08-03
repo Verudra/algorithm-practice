@@ -1,0 +1,48 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+#include<queue>
+#include<algorithm>
+#include<map>
+#include<cstring>
+#include<cmath>
+#define int ll
+#define rep(i, n) for(int i = 0; i < (n); i++)
+#define per(i, n) for(int i = (n) - 1;i >= 0; i--)
+#define For(i, l, r) for(int i = (l); i <= (r); i++)
+#define Rof(i, l, r) for(int i = (r); i >= (l); i--)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pii pair<int,int>
+#define fi first
+#define se second
+#define vpii vector<pair<int,int> >
+#define pque priority_queue
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+const int INF = 0x3f3f3f3f3f3f3f3f;
+const int mod = 1000000007;
+void work(){
+    vi sa(7); For(i,1,6) cin >> sa[i];
+    vi w = {0,1,2,3,5,10,20};
+    vi dp(1005);
+    dp[0] = 1;
+    For(i,1,6){
+        For(j,1,sa[i]){
+            Rof(k,w[i],1000) dp[k] = max(dp[k], dp[k-w[i]]);
+        }
+    }
+    int cnt = 0;
+    For(i,1,1000) if(dp[i]) cnt ++;
+    cout << "Total=" << cnt;
+    return ;
+}
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int T=1; 
+    //cin >> T;
+    while(T --) work();
+    return 0;
+}
