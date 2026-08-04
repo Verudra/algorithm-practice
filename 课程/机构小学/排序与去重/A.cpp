@@ -1,12 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 1e5;
-int sa[N],uni[N],cnt = 0;
+const int N = 1e6+10;
+int sa[N];
 int main(){
-    while(1){
-        int n; cin >> n;
-        if(n == 0) return 0;
-               
+    int n,k;
+    cin >> n;
+    for(int i = 1;i <= n;i ++){
+        cin >> sa[i];
     }
+    cin >> k;
+    sort(sa+1,sa+1+n);
+    cout << sa[n-k+1];
     return 0;
 }
