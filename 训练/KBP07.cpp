@@ -1,0 +1,102 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+#include<queue>
+#include<algorithm>
+#include<map>
+#include<cstring>
+#include<cmath>
+#define int ll
+#define rep(i, n) for(int i = 0; i < (n); i++)
+#define per(i, n) for(int i = (n) - 1;i >= 0; i--)
+#define For(i, l, r) for(int i = (l); i <= (r); i++)
+#define Rof(i, l, r) for(int i = (r); i >= (l); i--)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pii pair<int,int>
+#define fi first
+#define se second
+#define vpii vector<pair<int,int> >
+#define pque priority_queue
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+const int INF = 0x3f3f3f3f3f3f3f3f;
+const int mod = 1000000007;
+const int N = 2e5+10;
+int fa[N],siz[N];
+int getfa(int u){
+    return u == fa[u]?u:fa[u] = getfa(fa[u]);
+}
+void init(int n){
+    for(int i = 1;i <= n;i ++){
+        fa[i] = i;
+        siz[i] = 1;
+    }
+    return ;
+}
+void uni(int a,int b){
+    int faa = getfa(a),fab = getfa(b);
+    if(faa == fab) return ;
+    if(siz[faa] > siz[fab]) swap(faa,fab);
+    fa[faa] = fab;
+    siz[fab] += siz[faa];
+    return ;
+}
+struct Edge{
+    int u,v,w;
+    bool operator< (const Edge& b)const{
+        return w < b.w;
+    }
+};
+struct node{
+    int v,x,id;
+    bool operator< (const node& b)const{
+        return x < b.x;
+    }
+};
+struct node1{
+    int id,val;
+    bool operator< (const node1& b)const{
+        return id < b.id;
+    }
+};  
+void work(){
+    int n,m,q; cin >> n >> m >> q;
+    init(n);
+    vector<Edge>vec(m+1);
+    For(i,1,m){
+        auto& t = vec[i];
+        cin >> t.u >> t.v >> t.w;
+    }
+    vector<node>qs(q+1);
+    For(i,1,q){
+        auto& t = qs[i];
+        cin >> t.v >> t.x;
+        t.id = i;
+    }
+    sort(vec.begin()+1,vec.end());
+    sort(qs.begin()+1,qs.end());
+    int pos = 1;
+    vector<node1>ans;
+    For(i,1,q){
+        auto [v,x,id] = qs[i];
+        while(pos < vec.size() && vec[pos].w <= x){
+            auto e = vec[pos];
+            pos ++;
+            uni(e.u,e.v);
+        }
+        ans.push_back({id,siz[getfa(v)]});
+    }
+    sort(ans.begin(),ans.end());
+    for(auto t : ans) cout << t.val << '\n';
+    return ;
+}
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int T=1; 
+    //cin >> T;
+    while(T --) work();
+    return 0;
+}
