@@ -18,7 +18,9 @@ typedef unsigned long long ull;
 const int INF = 0x3f3f3f3f3f3f3f3f;
 const int mod = 1000000007;
 void work(){
-
+    string s; cin >> s;
+    rep(i,len(s)) if(s[i] != 'A') s[i] = '.';
+    cout << s;
     return ;
 }
 signed main(){
