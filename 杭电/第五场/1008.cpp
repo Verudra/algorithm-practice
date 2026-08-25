@@ -19,7 +19,7 @@ typedef long long ll;
 typedef unsigned long long ull;
 const int INF = 0x3f3f3f3f3f3f3f3f;
 const int mod = 1000000007;
-const int N = 2e5+10;
+const int N = 8e5+10;
 #define ls (u<<1)
 #define rs (u<<1|1)
 #define mid (l+r>>1)
@@ -49,14 +49,6 @@ struct Tree_sequence{
         return res;
     }
 }T;
-int getid(const vector<int>& v,int val){
-    return lower_bound(v.begin(),v.end(),val)-v.begin()+1;
-}
-// vector<int> lsh(vector<int> v){
-//     sort(v.begin(),v.end());
-//     v.erase(unique(v.begin(),v.end()),v.end());
-//     return v;
-// }
 struct node{
     int l,r,op,id;
 }sa[N];
